@@ -88,7 +88,6 @@ cdef dd(int* _0, int* _1, float** pdata, check, free_):
         return array_dd(_0[0], _1[0], pdata[0])
 
     def _set(v):
-        print(v)
         data = ptr_dd(v)
         pdata[0] = data
         _0[0], _1[0] = v.shape
