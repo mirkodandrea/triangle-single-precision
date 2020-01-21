@@ -1,4 +1,4 @@
-Triangle
+Triangle (Single Precision Mode)
 ---------
 
 |Triangle Build Status| |Triangle Version Status| |Triangle Downloads|
