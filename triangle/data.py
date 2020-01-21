@@ -40,9 +40,9 @@ def loads(
         # check if starting at zero or one
 
         var.start_at_zero = (v[0, 0] == '0')
-        data['vertices'] = np.array(v[:, 1:3], dtype='double')
+        data['vertices'] = np.array(v[:, 1:3], dtype='float32')
         if N_attr > 0:
-            data['vertex_attributes'] = np.array(v[:, 3:3 + N_attr], dtype='double')
+            data['vertex_attributes'] = np.array(v[:, 3:3 + N_attr], dtype='float32')
         if N_bnd_markers > 0:
             data['vertex_markers'] = np.array(v[:, 3 + N_attr:3 + N_attr + N_bnd_markers], dtype='intc')
 
@@ -60,7 +60,7 @@ def loads(
         if not var.start_at_zero:
             data['triangles'] -= 1
         if N_attr > 0:
-            data['triangle_attributes'] = np.array(v[:, N_nodes + 1:N_nodes + 1 + N_attr], dtype='double')
+            data['triangle_attributes'] = np.array(v[:, N_nodes + 1:N_nodes + 1 + N_attr], dtype='float32')
 
         return tokens
 
@@ -88,7 +88,7 @@ def loads(
 
         head, tokens = split(tokens, N_holes * 3)
         v = np.array(head).reshape(-1, 3)
-        data['holes'] = np.array(v[:, 1:3], dtype='double')
+        data['holes'] = np.array(v[:, 1:3], dtype='float')
 
         return tokens
 
@@ -100,7 +100,7 @@ def loads(
 
         head, tokens = split(tokens, N_areas * 2)
         v = np.array(head).reshape(-1, 2)
-        data['triangle_max_area'] = np.array(v[:, 1:2], dtype='double')
+        data['triangle_max_area'] = np.array(v[:, 1:2], dtype='float')
 
     def _edge(inpt):
         tokens = inpt.split('\n')
@@ -116,7 +116,7 @@ def loads(
         rays = np.array(rays)
         data['edges'] = np.array(edges[:, 1:3], dtype='intc')
         data['ray_origins'] = np.array(rays[:, 1:2], dtype='intc')
-        data['ray_directions'] = np.array(rays[:, 3:], dtype='double')
+        data['ray_directions'] = np.array(rays[:, 3:], dtype='float')
 
         if not var.start_at_zero:
             data['edges'] -= 1
@@ -132,7 +132,7 @@ def loads(
         # but it is only 3 in la.poly
         head, tokens = split(tokens, N_areas * 4)
         v = np.array(head).reshape(-1, 4)
-        regs = np.array(v[:, 1:4], dtype='double')
+        regs = np.array(v[:, 1:4], dtype='float')
         # add an extra column to make fields equal to 4
         regs = np.hstack((regs[:, 0:2], np.zeros((regs.shape[0], 1)), regs[:, 2:3]))
         data['regions'] = regs

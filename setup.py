@@ -1,10 +1,12 @@
 from setuptools import setup, Extension
+from Cython.Build import cythonize
+print(cythonize("triangle/core.pyx"))
 
-version = '20190115.3'
+version = 'SINGLE 20190115.3'
 
 define_macros = [
     ('VOID', 'void'),
-    ('REAL', 'double'),
+    ('REAL', 'float'),
     ('NO_TIMER', 1),
     ('TRILIBRARY', 1),
     ('ANSI_DECLARATORS', 1),

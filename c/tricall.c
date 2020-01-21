@@ -19,7 +19,7 @@
 /* If SINGLE is defined when triangle.o is compiled, it should also be       */
 /*   defined here.  If not, it should not be defined here.                   */
 
-/* #define SINGLE */
+#define SINGLE
 
 #ifdef SINGLE
 #define REAL float

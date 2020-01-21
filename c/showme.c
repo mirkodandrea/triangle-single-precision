@@ -60,7 +60,7 @@
 /* For double precision (which will allow you to display triangulations of   */
 /*   a finer resolution), leave SINGLE undefined.                            */
 
-/* #define SINGLE */
+#define SINGLE
 
 #ifdef SINGLE
 #define REAL float

@@ -6,15 +6,15 @@ cdef extern from "triangle.h":
 
     struct triangulateio:
 
-        double *pointlist
-        double *pointattributelist
+        float *pointlist
+        float *pointattributelist
         int *pointmarkerlist
         int numberofpoints
         int numberofpointattributes
 
         int *trianglelist
-        double *triangleattributelist
-        double *trianglearealist
+        float *triangleattributelist
+        float *trianglearealist
         int *neighborlist
         int numberoftriangles
         int numberofcorners
@@ -24,15 +24,15 @@ cdef extern from "triangle.h":
         int *segmentmarkerlist
         int numberofsegments
 
-        double *holelist
+        float *holelist
         int numberofholes
 
-        double *regionlist
+        float *regionlist
         int numberofregions
 
         int *edgelist
         int *edgemarkerlist
-        double *normlist
+        float *normlist
         int numberofedges
 
 
@@ -49,16 +49,16 @@ cdef array_ii(int N, int M, int* p):
         return <int[:N, :M]>p
 
 
-cdef array_dd(int N, int M, double* p):
+cdef array_dd(int N, int M, float* p):
     if p and N and M:
-        return <double[:N, :M]>p
+        return <float[:N, :M]>p
 
 
 cdef int* ptr_ii(int[:, ::1] arr):
     return &arr[0, 0]
 
 
-cdef double* ptr_dd(double[:, ::1] arr):
+cdef float* ptr_dd(float[:, ::1] arr):
     return &arr[0, 0]
 
 
@@ -82,12 +82,13 @@ cdef ii(int* _0, int* _1, int** pdata, check, free_):
     return _get, _set, _free
 
 
-cdef dd(int* _0, int* _1, double** pdata, check, free_):
+cdef dd(int* _0, int* _1, float** pdata, check, free_):
 
     def _get():
         return array_dd(_0[0], _1[0], pdata[0])
 
     def _set(v):
+        print(v)
         data = ptr_dd(v)
         pdata[0] = data
         _0[0], _1[0] = v.shape
@@ -140,24 +141,24 @@ cdef _wrap(triangulateio* c):
 
 
 fields = (
-    ('pointlist', 'double'),
-    ('pointattributelist', 'double'),
+    ('pointlist', 'float32'),
+    ('pointattributelist', 'float32'),
     ('pointmarkerlist', 'intc'),
 
     ('trianglelist', 'intc'),
-    ('triangleattributelist', 'double'),
-    ('trianglearealist', 'double'),
-    ('neighborlist', 'double'),
+    ('triangleattributelist', 'float32'),
+    ('trianglearealist', 'float32'),
+    ('neighborlist', 'float32'),
 
     ('segmentlist', 'intc'),
     ('segmentmarkerlist', 'intc'),
 
-    ('holelist', 'double'),
-    ('regionlist', 'double'),
+    ('holelist', 'float32'),
+    ('regionlist', 'float32'),
 
     ('edgelist', 'intc'),
     ('edgemarkerlist', 'intc'),
-    ('normlist', 'double'),
+    ('normlist', 'float32'),
 )
 
 
